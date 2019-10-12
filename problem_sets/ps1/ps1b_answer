@@ -1,0 +1,3 @@
+1. if there were 30 different eggs it would be hard to use the brute force algorithm to find an optimal solution to this problem. we would need to look at all possible factors of all 30 eggs in the target weight and all the different combinations. Due to the 
+2. constraint would be the availabe weight to take on, it would sort the values and go from largest to smallest trying to fit them in as many times as possible and filling the remainder up with the egg of weight one.
+3. greedy will always return an optimal solution because one of the assumptions is that there is always an egg with the weight of one.
