@@ -1,12 +1,11 @@
 ###########################
 # 6.0002 Problem Set 1a: Space Cows 
-# Name:
-# Collaborators:
+# Name: Aydan Gasimova
+# Collaborators: None
 # Time:
 
 from ps1_partition import get_partitions
 import time
-import numpy as np
 from functools import reduce
 
 
@@ -103,26 +102,6 @@ def brute_force_cow_transport(cows, limit=10):
     transported on a particular trip and the overall list containing all the
     trips
     """
-    # trip_options = get_partitions(set(cows))
-    # legal_options = []
-    #
-    # for option in trip_options:
-    #     option_weights = []
-    #     for trip in option:
-    #         trip_weight = 0
-    #         for i in trip:
-    #             trip_weight += cows.get(i)
-    #         option_weights.append(trip_weight)
-    #
-    #     if all(trip_weight <= limit for trip_weight in option_weights):
-    #         legal_options.append(option)
-    #
-    # legal_options = sorted(legal_options, key=len, reverse=False)
-    # min_trips = legal_options[0]
-    #
-    # return print(min_trips)
-
-   # make a list of tuples with all trip options and their weight [(w, option), (w, option), .... (w, option)]
 
     trip_options = get_partitions(set(cows))
 
@@ -130,12 +109,8 @@ def brute_force_cow_transport(cows, limit=10):
     for option in trip_options:
         for trip in option:
             in_weights = list(map(lambda x: cows[x], trip))
-            # print("trip weights are ", in_weights)
             trip_weight = reduce(lambda x, y: x+y, in_weights)
-            # print("total weight is ", trip_weight)
         option_weights.append(trip_weight)
-    # print("option weights are ", option_weights)
-    # print("number of options are", len(option_weights))
 
     trip_options_list = list(get_partitions(set(cows)))
     print("number of trip options are ", len(trip_options_list))
@@ -146,7 +121,6 @@ def brute_force_cow_transport(cows, limit=10):
 
     legal_options = list(filter(lambda x: x[0]<=10, weights_options_list))
 
-    # print("legal options are ", legal_options)
     legal_options = list(map(lambda x: x, [t[1] for t in legal_options]))
 
     legal_options = sorted(legal_options, key=len, reverse=False)
@@ -155,15 +129,16 @@ def brute_force_cow_transport(cows, limit=10):
     for i in range(10):
         print(legal_options[i])
 
-    min_trips=legal_options[0]
+    min_trips = legal_options[0]
 
-    return print("min trips are", min_trips)
+    return print(min_trips)
 
 
 
         # use a filter function to go through those to select the one with the lowest length option where the weight is below the permitted threshold
 
         # Problem 4
+
 def compare_cow_transport_algorithms():
     """
     Using the data from ps1_cow_data.txt and the specified weight limit, run your
@@ -177,7 +152,6 @@ def compare_cow_transport_algorithms():
     Returns:
     Does not return anything.
     """
-    # TODO: Your code here
 
     start = time.time()
     cow_dict = load_cows("ps1_cow_data.txt")
@@ -198,12 +172,14 @@ def compare_cow_transport_algorithms():
     start = time.time()
     brute_force_cow_transport(cow_dict, limit=10)
     end = time.time()
-    print("Bruteforce algorithm takes ", round(end-start, 4), "seconds to run", "\n\n")
+    print("Bruteforce algorithm takes ", round(end - start, 4), "seconds to run", "\n\n")
     # brute_trip = brute_force_cow_transport(cow_dict, limit=10)
     # print("Length of trips is ",len(brute_trip), "\n\n")
 
 # compare_cow_transport_algorithms()
 
-cow_dict = load_cows("ps1_cow_data.txt")
+cow_dict = load_cows("ps1_cow_data_2.txt")
 
 brute_force_cow_transport(cow_dict, limit=10)
+
+# compare_cow_transport_algorithms()
