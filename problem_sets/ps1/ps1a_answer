@@ -1,7 +1,0 @@
-The Greedy algorithm runs faster than Bruteforce, but produces a solution which is less optimal ( as it has one extra trip ).
-
-The Bruteforce takes longer to run since it considers every possible option, however the benefit is that it will always provide an optimal solution.
-
-The Greedy algorithm is faster, but suffers from branch dependency and not being able to cover certain blind spots. 
-
-With small data sets like this one it seems the optimal algorithm to use would be the Bruteforce one as it provides the optimal answer and its cost is not too large given the small data. Whereas if we were to run these two algorithms on very large data then Greedy would have an advantage.

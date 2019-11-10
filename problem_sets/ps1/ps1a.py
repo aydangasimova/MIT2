@@ -44,11 +44,10 @@ def greedy_cow_transport(cows,limit=10):
     """
     Uses a greedy heuristic to determine an allocation of cows that attempts to
     minimize the number of spaceship trips needed to transport all the cows. The
-
+    returned allocation of cows may or may not be optimal.
     The greedy heuristic should follow the following method:
 
-    1. As long as the current trip can fit another cow, add the    returned allocation of cows may or may not be optimal.
- largest cow that will fit
+    1. As long as the current trip can fit another cow, add the largest cow that will fit
         to the trip
     2. Once the trip is full, begin a new trip to transport the remaining cows
 
@@ -104,40 +103,55 @@ def brute_force_cow_transport(cows, limit=10):
     """
 
     trip_options = get_partitions(set(cows))
+    legal_options = []
 
-    option_weights = []
     for option in trip_options:
+        option_weights = []
         for trip in option:
-            in_weights = list(map(lambda x: cows[x], trip))
-            trip_weight = reduce(lambda x, y: x+y, in_weights)
-        option_weights.append(trip_weight)
+            trip_weight = 0
+            for i in trip:
+                trip_weight += cows.get(i)
+            option_weights.append(trip_weight)
 
-    trip_options_list = list(get_partitions(set(cows)))
-    print("number of trip options are ", len(trip_options_list))
-
-    weights_options_list = list(zip(option_weights, trip_options_list))
-    print(weights_options_list)
-    weights_options_list[0]
-
-    legal_options = list(filter(lambda x: x[0]<=10, weights_options_list))
-
-    legal_options = list(map(lambda x: x, [t[1] for t in legal_options]))
+        if all(trip_weight <= limit for trip_weight in option_weights):
+            legal_options.append(option)
 
     legal_options = sorted(legal_options, key=len, reverse=False)
-
-    print("legal options are \n")
-    for i in range(10):
-        print(legal_options[i])
-
     min_trips = legal_options[0]
 
-    return print(min_trips)
+    return min_trips
 
+    # trip_options = get_partitions(set(cows))
+    #
+    # option_weights = []
+    # for option in trip_options:
+    #     for trip in option:
+    #         in_weights = list(map(lambda x: cows[x], trip))
+    #         trip_weight = reduce(lambda x, y: x+y, in_weights)
+    #     option_weights.append(trip_weight)
+    #
+    # trip_options_list = list(get_partitions(set(cows)))
+    # print("number of trip options are ", len(trip_options_list))
+    #
+    # weights_options_list = list(zip(option_weights, trip_options_list))
+    # # print(weights_options_list)
+    # weights_options_list[0]
+    #
+    # legal_options = list(filter(lambda x: x[0]<=10, weights_options_list))
+    # legal_options = list(map(lambda x: x, [t[1] for t in legal_options]))
+    # legal_options = sorted(legal_options, key=len, reverse=False)
+    #
+    # # print("legal options are \n")
+    # # for i in range(10):
+    # #     print(legal_options[i])
+    #
+    # min_trips = legal_options[0]
+    #
+    # return min_trips
 
+# use a filter function to go through those to select the one with the lowest length option where the weight is below the permitted threshold
 
-        # use a filter function to go through those to select the one with the lowest length option where the weight is below the permitted threshold
-
-        # Problem 4
+# Problem 4
 
 def compare_cow_transport_algorithms():
     """
@@ -178,8 +192,10 @@ def compare_cow_transport_algorithms():
 
 # compare_cow_transport_algorithms()
 
-cow_dict = load_cows("ps1_cow_data_2.txt")
+cows = load_cows("ps1_cow_data_n.txt")
+limit = 10
+# print(cows)
 
-brute_force_cow_transport(cow_dict, limit=10)
+print(brute_force_cow_transport(cows, limit))
 
 # compare_cow_transport_algorithms()

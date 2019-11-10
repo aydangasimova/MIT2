@@ -1,4 +1,5 @@
-
+from ps1.lecture3_handout import *
+import re
 
 nodes = []
 
@@ -14,3 +15,12 @@ g = Graph()
 for n in nodes:
     print(n)
     g.addNode(n)
+
+
+for j in range(len(nodes)):
+    for i in range(len(nodes)):
+        if nodes[i].getName() == nodes[j].getName():
+            break
+        else:
+            if nodes[j].getName()[0] == nodes[i].getName()[0] or nodes[j].getName()[-1] == nodes[i].getName()[-1]:
+                g.addEdge(Edge(nodes[j], nodes[i]))
