@@ -59,12 +59,14 @@ class Digraph(object):
                          + dest.getName() + '\n'
         return result[:-1] #omit final newline
 
+
 class Graph(Digraph):
     def addEdge(self, edge):
         Digraph.addEdge(self, edge)
         rev = Edge(edge.getDestination(), edge.getSource())
         Digraph.addEdge(self, rev)
-    
+
+
 def buildCityGraph(graphType):
     g = graphType()
     for name in ('Boston', 'Providence', 'New York', 'Chicago',
@@ -90,7 +92,7 @@ def printPath(path): # is just used to print the path in a pretty way
         result = result + str(path[i])
         if i != len(path) - 1:
             result = result + '->'
-    return result 
+    return result
 
 
 def DFS(graph, start, end, path, shortest, toPrint = False):
@@ -157,10 +159,7 @@ def shortestPath(graph, start, end, toPrint = False):
     
 testSP('Boston', 'Phoenix')
     
-    
-    
-    
-    
+
     
     
     

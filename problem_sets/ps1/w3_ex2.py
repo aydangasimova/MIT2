@@ -1,5 +1,4 @@
 from ps1.lecture3_handout import *
-import re
 
 nodes = []
 
@@ -13,7 +12,6 @@ nodes.append(Node("CBA")) # nodes[5]
 g = Graph()
 
 for n in nodes:
-    print(n)
     g.addNode(n)
 
 
