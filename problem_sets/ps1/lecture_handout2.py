@@ -83,7 +83,7 @@ def buildCityGraph(graphType):
     return g
 
 
-def printPath(path):
+def printPath(path): # is just used to print the path in a pretty way
     """Assumes path is a list of nodes"""
     result = ''
     for i in range(len(path)):
@@ -92,12 +92,13 @@ def printPath(path):
             result = result + '->'
     return result 
 
+
 def DFS(graph, start, end, path, shortest, toPrint = False):
     """Assumes graph is a Digraph; start and end are nodes;
           path and shortest are lists of nodes
        Returns a shortest path from start to end in graph"""
     path = path + [start]
-    if toPrint:
+    if toPrint: #we only print what the algorithm is up to when we specify it as a parameter in the function.
         print('Current DFS path:', printPath(path))
     if start == end:
         return path
