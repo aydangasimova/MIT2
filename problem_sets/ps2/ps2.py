@@ -84,6 +84,11 @@ class RectangularRoom(object):
         """
         self.width = width
         self.height = height
+        self.clean_tiles = {}
+        for x in width:
+            for y in height:
+                self.clean_tiles[(x, y)] = False # a dict of positions to clean or not
+
 
     def cleanTileAtPosition(self, pos):
         """
@@ -93,9 +98,7 @@ class RectangularRoom(object):
 
         pos: a Position
         """
-        clean_tiles = {}
-        self.position = pos
-        clean_tiles[pos(0)] = pos(1) # I am assuming pos is a tuple
+        self.clean_tiles[(pos.getX, pos.getY)] = True
 
     def isTileCleaned(self, m, n):
         """
@@ -107,12 +110,13 @@ class RectangularRoom(object):
         n: an integer
         returns: True if (m, n) is cleaned, False otherwise
         """
-    #   if tile (m,n) is clean:
-    #   return True
-    #   else:
-    #   return False
 
-    
+        if self.clean_tiles[(m, n)]: #implies if it is equal to true
+            return True
+        else:
+            return False
+
+
     def getNumTiles(self):
         """
         Return the total number of tiles in the room.
@@ -127,6 +131,12 @@ class RectangularRoom(object):
 
         returns: an integer
         """
+        count = 0
+        for tile in self.clean_tiles.values():
+            if tile:
+                count += 1 # make it fancy with map and lambda
+
+        return count
 
     def getRandomPosition(self):
         """
