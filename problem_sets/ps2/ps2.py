@@ -85,10 +85,9 @@ class RectangularRoom(object):
         self.width = width
         self.height = height
         self.clean_tiles = {}
-        for x in width:
-            for y in height:
+        for x in range(width):
+            for y in range(height):
                 self.clean_tiles[(x, y)] = False # a dict of positions to clean or not
-
 
     def cleanTileAtPosition(self, pos):
         """
@@ -98,7 +97,7 @@ class RectangularRoom(object):
 
         pos: a Position
         """
-        self.clean_tiles[(pos.getX, pos.getY)] = True
+        self.clean_tiles[(int(pos.getX()), int(pos.getY()))] = True
 
     def isTileCleaned(self, m, n):
         """
@@ -111,7 +110,7 @@ class RectangularRoom(object):
         returns: True if (m, n) is cleaned, False otherwise
         """
 
-        if self.clean_tiles[(m, n)]: #implies if it is equal to true
+        if self.clean_tiles[(m, n)]: # implies if it is equal to true
             return True
         else:
             return False
@@ -138,12 +137,17 @@ class RectangularRoom(object):
 
         return count
 
+
     def getRandomPosition(self):
         """
         Return a random position inside the room.
 
         returns: a Position object.
         """
+        x = random.choice(range(self.width))
+        y = random.choice(range(self.height))
+
+        return Position(x, y)
 
     def isPositionInRoom(self, pos):
         """
@@ -152,6 +156,10 @@ class RectangularRoom(object):
         pos: a Position object.
         returns: True if pos is in the room, False otherwise.
         """
+        if self.width > pos.getX() >= 0 and 0 <= pos.getY() < self.height:
+            return True
+        else:
+            return False
 
 # === Problem 2
 class Robot(object):
@@ -341,3 +349,35 @@ def showPlot2(title, x_label, y_label):
 #
 #       (... your call here ...)
 #
+
+# debugging:
+
+print("room is initiated with the following clean tiles: ")
+my_room = RectangularRoom(3, 4)
+
+print("number of tiles is:", my_room.getNumTiles())
+
+my_pos = Position(1, 2)
+print("initiated my_pos at", my_pos)
+
+my_room.cleanTileAtPosition(my_pos)
+print("cleaned the tile at", my_pos)
+
+print("test if the tile at my_pos is actually clean: ", my_room.isTileCleaned(my_pos.getX(), my_pos.getY()))
+
+print("now let's see the total number of cleaned tiles: ", my_room.getNumCleanedTiles())
+
+random_pos = my_room.getRandomPosition()
+print("getting a random position at: ", random_pos)
+
+print("now let's check if the position is in the room: ", my_room.isPositionInRoom(random_pos))
+
+print("now we will clean this tile, check if it is clean and then count the number of clean tiles again: ")
+my_room.cleanTileAtPosition(random_pos)
+
+print("test if the tile at random_pos is actually clean: ", my_room.isTileCleaned(random_pos.getX(), random_pos.getY()))
+
+print("now let's see the total number of cleaned tiles: ", my_room.getNumCleanedTiles())
+
+
+
